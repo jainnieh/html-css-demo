@@ -1,3 +1,6 @@
+---
+layout: default
+---
 ## 测试修改文档后, page更新时长
 ## 仓库介绍
 html css demo，喜欢的话就 [**Star**](https://github.com/jainnieh/html-css-demo) 一下
