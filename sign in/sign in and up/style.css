@@ -1,0 +1,400 @@
+:root{
+    /*自定义属性的使用*/
+    --form-height:550px;
+    --form-width: 900px;
+    /*  Sea Green */
+    --left-color: #9fdeaf;
+    /*  Light Blue  */
+    --right-color: #96dbe2;
+    --container-radius: 30px;
+}
+
+body, html{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    font-family: 'Helvetica Neue', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.container{
+    width: var(--form-width);
+    height: var(--form-height);
+    position: relative;
+
+    box-shadow: 2px 10px 40px rgba(22,20,19,0.4);
+    /*如果container中有盒子靠近边缘且有bgcolor则需要注意radius*/
+    border-radius: var(--container-radius);
+    /*   margin: auto;
+       margin-top: 50px;*/
+    /*修改为居中*/
+    margin: 0 auto;
+    margin-top: calc((100vh - var(--form-height)) /2);
+    /*背景设置在这里最合适*/
+    background-color: #f1bec7;
+}
+/*
+----------------------
+      Overlay
+----------------------
+*/
+.overlay{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 100;
+    background-image: linear-gradient(to right, var(--left-color), var(--right-color));
+    border-radius: var(--container-radius);
+    color: white;
+    /*使用裁剪的原因是方便动画, 且不用考虑移动到另一侧时圆角位置发生变化等问题*/
+    clip: rect(0, 385px, var(--form-height), 0);
+}
+
+.open-sign-up{
+    animation: slideleft 1s linear forwards;
+}
+/*overlay右移动画*/
+.open-sign-in{
+    animation: slideright 1s linear forwards;
+}
+
+.overlay .sign-in, .overlay .sign-up{
+    /*  Width is 385px - padding  385是overlay的宽度 */
+    /*padding是sign-in或sign-up距离overlay边缘的*/
+    --padding: 50px;
+    width: calc(385px - var(--padding) * 2); /*content区域的宽度,宽度设置需要考虑下面padding*/
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 var(--padding);
+    text-align: center;
+}
+
+.overlay .sign-in{
+    float: left;
+}
+
+.overlay-text-left-animation{
+    animation: text-slide-in-left 1s linear;
+}
+/*sign-in提示侧文字由于overlay右移而消失的动画*/
+.overlay-text-left-animation-out{
+    animation: text-slide-out-left 1s linear;
+}
+
+.overlay .sign-up{
+    float:right;
+}
+
+.overlay-text-right-animation{
+    animation: text-slide-in-right 1s linear;
+}
+
+.overlay-text-right-animation-out{
+    animation: text-slide-out-right 1s linear;
+}
+
+
+.overlay h1{
+    margin: 0 5px;
+    font-size: 2.1rem;
+}
+
+.overlay p{
+    margin: 20px 0 30px;
+    font-weight: 200;
+}
+/*
+------------------------
+      Buttons
+------------------------
+*/
+.switch-button, .control-button{
+    display: block;
+    width: 140px;
+    height: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 20px;
+    font-size: 14px;
+    /*控制文本的大小写转换*/
+    text-transform: uppercase;
+    color: white;
+    background: none;
+    cursor: pointer;
+}
+/*switch-button指的是没有非表单侧的按钮,既有up也有in*/
+.switch-button{
+    border: 2px solid;
+}
+
+.control-button{
+    border: none;
+    margin-top: 15px;
+}
+
+/*按下tab切换到button时展示的样式*/
+.switch-button:focus, .control-button:focus{
+    outline:none;
+    box-shadow: 2px 10px 20px rgba(22,20,19,0.4);
+}
+
+.control-button.up{
+    background-color: var(--left-color);
+}
+
+.control-button.in{
+    background-color: var(--right-color);
+}
+
+/*
+--------------------------
+      Forms
+--------------------------
+*/
+.form{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    /*如果当前div有bg-color则必须注意radius*/
+    /*border-radius: var(--container-radius);*/
+}
+
+.form .sign-in, .form .sign-up{
+    --padding: 50px;
+    position:absolute;
+    /*  Width is container的100% - 385px - padding  */
+    width: calc(var(--form-width) - 385px - var(--padding) * 2);/*content区域的宽度,宽度设置需要考虑下面padding*/
+    height: 100%;
+    /*背景设置在container完美解决*/
+
+    /*让h1和form标签等垂直居中*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0 var(--padding);
+    text-align: center;
+}
+
+/* Sign in is initially not displayed */
+.form .sign-in{
+    display: none;
+}
+
+.form .sign-in{
+    /*from占据container全部, 所以这里sign-in/up要通过定位靠左靠右*/
+    /*因为sign-in或up占父容器from的整个宽高,又调整了sign-in的宽度所以要调整左右位置使其靠近左右*/
+    left:0;
+}
+
+.form .sign-up{
+    right: 0;
+}
+/*sign-up表单侧由于overlay左移而出现的动画*/
+.form-right-slide-in{
+    animation: form-slide-in-right 1s;
+}
+/*sign-up表单侧由于overlay右移而被覆盖的动画*/
+.form-right-slide-out{
+    animation: form-slide-out-right 1s;
+}
+
+.form-left-slide-in{
+    animation: form-slide-in-left 1s;
+}
+
+.form-left-slide-out{
+    animation: form-slide-out-left 1s;
+}
+
+.form .sign-in h1{
+    /*这个字体颜色有些晃眼*/
+    color: var(--right-color);
+    margin: 0;
+}
+
+.form .sign-up h1{
+    color: var(--left-color);
+    margin: 0;
+}
+
+.social-media-buttons{
+    width: 100%;
+    margin: 15px;
+    /*调整内部的几个icon水平分布*/
+    display: flex;
+    justify-content: center;
+}
+
+.social-media-buttons .icon{
+    width: 40px;
+    height: 40px;
+    border: 1px solid #dadada;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 7px;
+}
+
+.small{
+    font-size: 13px;
+    color: grey;
+    font-weight: 200;
+    margin: 5px;
+}
+
+.social-media-buttons .icon svg{
+    width: 25px;
+    height: 25px;
+}
+
+#sign-in-form input, #sign-up-form input{
+    width: 260px;
+    margin: 12px;
+    padding: 15px;
+    border: none;
+    background-color: #e4e4e494;
+    font-size: 14px;
+    font-weight: 300;
+    font-family: 'Helvetica Neue', sans-serif;
+    letter-spacing: 1.5px;
+    padding-left: 20px;
+}
+
+#sign-in-form input::placeholder, #sign-up-form input::placeholder {
+    letter-spacing: 2px;
+}
+
+.forgot-password{
+    display: inline-block;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #efebeb;
+    font-size: 12px;
+}
+
+.forgot-password:hover{
+    cursor: pointer;
+}
+
+/*
+---------------------------
+    Animation
+---------------------------
+*/
+@keyframes slideright{
+    0%{
+        clip: rect(0, 385px, var(--form-height), 0);
+    }
+    30%{
+        clip: rect(0, 480px, var(--form-height), 0);
+    }
+    /*  we want the width to be slightly larger here  */
+    50%{
+        clip: rect(0px, calc(var(--form-width) / 2 + 480px / 2), var(--form-height), calc(var(--form-width) / 2 - 480px / 2));
+    }
+    80%{
+        clip: rect(0px, var(--form-width), var(--form-height), calc(var(--form-width) - 480px));
+    }
+    100%{
+        clip: rect(0px, var(--form-width), var(--form-height), calc(var(--form-width) - 385px));
+    }
+}
+
+@keyframes slideleft{
+    100%{
+        clip: rect(0, 385px, var(--form-height), 0);
+    }
+    70%{
+        clip: rect(0, 480px, var(--form-height), 0);
+    }
+    /*  we want the width to be slightly larger here  */
+    50%{
+        clip: rect(0px, calc(var(--form-width) / 2 + 480px / 2), var(--form-height), calc(var(--form-width) / 2 - 480px / 2));
+    }
+    30%{
+        clip: rect(0px, var(--form-width), var(--form-height), calc(var(--form-width) - 480px));
+    }
+    0%{
+        clip: rect(0px, var(--form-width), var(--form-height), calc(var(--form-width) - 385px));
+    }
+}
+
+@keyframes text-slide-in-left{
+    0% {
+        padding-left: 20px;
+    }
+    100% {
+        padding-left: 50px;
+    }
+}
+
+@keyframes text-slide-in-right{
+    0% {
+        padding-right: 20px;
+    }
+    100% {
+        /*结束的位置和.overlay .sign-in中的--padding数值是一样的*/
+        padding-right: 50px;
+    }
+}
+
+@keyframes text-slide-out-left{
+    0% {
+        padding-left: 50px;
+    }
+    100% {
+        padding-left: 20px;
+    }
+}
+
+@keyframes text-slide-out-right{
+    0% {
+        padding-right: 50px;
+    }
+    100% {
+        padding-right: 20px;
+    }
+}
+
+@keyframes form-slide-in-right{
+    0%{
+        padding-right: 100px;
+    }
+    100%{
+        padding-right: 50px;
+    }
+}
+
+@keyframes form-slide-in-left{
+    0%{
+        padding-left: 100px;
+    }
+    100%{
+        padding-left: 50px;
+    }
+}
+
+@keyframes form-slide-out-right{
+    0%{
+        /*开始的位置和.overlay .sign-in中的--padding数值是一样的*/
+        padding-right: 50px;
+    }
+    100%{
+        padding-right: 80px;
+    }
+}
+
+@keyframes form-slide-out-left{
+    0%{
+        padding-left: 50px;
+    }
+    100%{
+        padding-left: 80px;
+    }
+}
