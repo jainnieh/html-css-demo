@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en-US" }}">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ site.title | default: site.github.repository_name }}</title> <!--在seo引入前定义title标签-->
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?">
+
+<!--
+  Begin Jekyll SEO tag v2.8.0 seo引入的模板
+<title>test2 | Html Css Demo4</title>
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="test2" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="https://htmlcssdemo.showsome.fun/" />
+<meta property="og:description" content="https://htmlcssdemo.showsome.fun/" />
+<link rel="canonical" href="https://htmlcssdemo.showsome.fun/" />
+<meta property="og:url" content="https://htmlcssdemo.showsome.fun/" />
+<meta property="og:site_name" content="Html Css Demo4" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="test2" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","description":"https://htmlcssdemo.showsome.fun/","headline":"test2","name":"Html Css Demo4","url":"https://htmlcssdemo.showsome.fun/"}</script>
+End Jekyll SEO tag -->
+  {% seo %}
+  <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
+  {% include head-custom.html %}
+</head>
+<body>
+<div class="container-lg px-3 my-5 markdown-body">
+
+<!--  如果没有配置site.title就使用repository_name -->
+  <h1><a href="{{ site.github.repository_url }}" target="_blank">{{ site.title | default: site.github.repository_name }}</a></h1>
+
+<!--  markdown文档内容-->
+  {{ content }}
+
+  <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
+    Learn more: <a href="https://www.showsome.fun" target="_blank">www.showsome.fun</a>
+  </div>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+<script>anchors.add();</script>
+</body>
+</html>
